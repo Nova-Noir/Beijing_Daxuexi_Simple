@@ -6,24 +6,24 @@ from study import study
 def getAccounts():
     result = []
     file_object=open("USERNAME.txt","r")
-    #usernameRaw = os.getenv("USERNAME", "")
-    usernameRaw=file_object.read()
-    # if len(usernameRaw.split('\n')) == 1:
+    usernameRaw = os.getenv("USERNAME", "")
+    # usernameRaw=file_object.read()
+    if len(usernameRaw.split('\n')) == 1:
     #     # Single User
-    #     passwd = os.environ["PASSWORD"]
-    #     if usernameRaw and passwd:
-    #         result.append((usernameRaw, passwd))
+         passwd = os.environ["PASSWORD"]
+         if usernameRaw and passwd:
+             result.append((usernameRaw, passwd))
     # else:
     #     # Multiple Users
-    account_lines = usernameRaw.split('\n')
-    for lineN, line in enumerate(account_lines):
-        lineSplit = line.split(' ')
-        if len(lineSplit) == 3:
-            lineSplit = lineSplit[:2]
-            print('现在可以删除组织ID了')
-        elif len(lineSplit) != 2:
-            raise Exception(f"第{lineN}行账号格式错误")
-        result.append(lineSplit)
+#     account_lines = usernameRaw.split('\n')
+#     for lineN, line in enumerate(account_lines):
+#         lineSplit = line.split(' ')
+#         if len(lineSplit) == 3:
+#             lineSplit = lineSplit[:2]
+#             print('现在可以删除组织ID了')
+#         elif len(lineSplit) != 2:
+#             raise Exception(f"第{lineN}行账号格式错误")
+#         result.append(lineSplit)
 
     if not result:
         raise Exception("没有被配置的账号！请设置Secret: USERNAME(和PASSWORD)")
@@ -40,6 +40,7 @@ count = 0
 for username, password in accounts:
     count += 1
     print(f'--User {count}--')
+    print(username, password)
     if study(username, password, ua):
         successful += 1
 
