@@ -40,7 +40,6 @@ count = 0
 for username, password in accounts:
     count += 1
     print(f'--User {count}--')
-    print(username, password)
     if study(username, password, ua):
         successful += 1
 
