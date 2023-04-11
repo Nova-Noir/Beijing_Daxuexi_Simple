@@ -63,16 +63,19 @@ def study(username, password, ua):
     orgID = ""
     try:
         orgIdTemp = orgPattern.search(haveLearned['data'][0]['orgname'])
-        orgID = orgIdTemp.group(1)
+        orgID = orgIdTemp[1]
     except:
         print('获取组织id-2')
-        orgIdTemp = orgPattern.search(bjySession.get('https://m.bjyouth.net/dxx/my').json()['data']['org'])
-        if orgIdTemp:
-            orgID = orgIdTemp.group(1)
+        if orgIdTemp := orgPattern.search(
+            bjySession.get('https://m.bjyouth.net/dxx/my').json()['data'][
+                'org'
+            ]
+        ):
+            orgID = orgIdTemp[1]
 
     if not orgID:
         orgID = '172442'
-        print(f"无法获取orgID")
+        print("无法获取orgID")
 
 #     if f"学习课程：《{title}》" in list(map(lambda x: x['text'], haveLearned['data'])):
 #         print(f'{title} 在运行前已完成,退出')
@@ -85,7 +88,7 @@ def study(username, password, ua):
     #     return 0
     #
     # end_img_url = f'https://h5.cyol.com/special/daxuexi/{result.group(1)}/images/end.jpg'
-    study_url = f"https://m.bjyouth.net/dxx/check"
+    study_url = "https://m.bjyouth.net/dxx/check"
     r = bjySession.post(study_url, json={"id": courseId, "org_id": orgID})  # payload
     if r.text:
         print(f'Unexpected response: {r.text}')
