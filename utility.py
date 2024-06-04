@@ -44,9 +44,12 @@ def denoise(cap):
                 if px[0] < px[1] + px[2]:
                     count = 2
                 for x, y in steps:
-                    if 0 <= j + x < img.width and 0 <= i + y < img.height:
-                        if img.getpixel((j + x, i + y)) == _PX_BACKGROUND:
-                            count += 1
+                    if (
+                        0 <= j + x < img.width
+                        and 0 <= i + y < img.height
+                        and img.getpixel((j + x, i + y)) == _PX_BACKGROUND
+                    ):
+                        count += 1
                 if count >= threshold:
                     img.putpixel((j, i), _PX_BACKGROUND)
                 else:
